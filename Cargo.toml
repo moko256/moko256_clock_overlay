@@ -3,6 +3,7 @@ name = "clock_overlay"
 version = "0.1.0"
 authors = ["moko256"]
 edition = "2018"
+exclude = ["README.md", "app_screenshot.webp"]
 
 [package.metadata.docs.rs]
 default-target = "x86_64-pc-windows-msvc"
