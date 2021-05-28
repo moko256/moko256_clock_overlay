@@ -1,0 +1,29 @@
+[package]
+name = "clock_overlay"
+version = "0.1.0"
+authors = ["moko256"]
+edition = "2018"
+
+[package.metadata.docs.rs]
+default-target = "x86_64-pc-windows-msvc"
+targets = ["x86_64-pc-windows-msvc"]
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[dependencies]
+raw-window-handle = "0.3.3"
+direct2d = "0.2.0"
+directwrite = "0.1.4"
+chrono = "0.2"
+
+[dependencies.winit]
+version = "0.25.0"
+default-features = false
+
+[dependencies.winapi]
+version = "0.3.7"
+features = ["windef"]
