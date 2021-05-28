@@ -21,7 +21,6 @@ use winapi::um::winuser::WS_EX_TRANSPARENT;
 use winit::dpi::PhysicalPosition;
 use winit::dpi::PhysicalSize;
 
-use winit::event::ElementState;
 use winit::{
     event::{Event, WindowEvent},
     event_loop::{ControlFlow, EventLoop},
@@ -34,7 +33,7 @@ const TEXTURE_HEIGHT: u32 = 54;
 fn main() {
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new()
-        .with_title("temp_overlay")
+        .with_title("clock_overlay")
         .with_inner_size(PhysicalSize::new(TEXTURE_WIDTH, TEXTURE_HEIGHT))
         .with_position(PhysicalPosition::new(900.0, 0.0))
         .with_transparent(true)
@@ -68,14 +67,6 @@ fn main() {
         *control_flow = ControlFlow::WaitUntil(Instant::now() + Duration::from_secs(1));
 
         match event {
-            Event::WindowEvent {
-                event:
-                    WindowEvent::MouseInput {
-                        state: ElementState::Released,
-                        ..
-                    },
-                ..
-            } => *control_flow = ControlFlow::Exit,
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 ..
