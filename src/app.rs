@@ -65,7 +65,7 @@ impl App {
                 color: (0x000000, 0.0),
             },
             RenderPrimitives::VertCenteredText {
-                text: format!("{}:{}", self.show_state.hour, self.show_state.minute),
+                text: format!("{:02}:{:02}", self.show_state.hour, self.show_state.minute),
                 rect: (0.0, 0.0, self.width, self.height),
                 size_font: 54.0,
                 size_space: 1.0,
