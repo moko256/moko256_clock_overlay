@@ -4,6 +4,9 @@ mod app;
 mod app_renderer;
 mod render_primitives;
 
+use std::mem::size_of;
+use std::mem::zeroed;
+use std::ptr::null_mut;
 use std::time::Duration;
 use std::time::Instant;
 
@@ -13,8 +16,12 @@ use app_renderer::AppRenderer;
 use raw_window_handle::HasRawWindowHandle;
 use raw_window_handle::RawWindowHandle;
 use winapi::shared::windef::HWND__;
+use winapi::um::winuser::GetMonitorInfoW;
+use winapi::um::winuser::MonitorFromWindow;
 use winapi::um::winuser::SetWindowLongPtrW;
 use winapi::um::winuser::GWL_EXSTYLE;
+use winapi::um::winuser::MONITORINFO;
+use winapi::um::winuser::MONITOR_DEFAULTTONULL;
 use winapi::um::winuser::WS_EX_LAYERED;
 use winapi::um::winuser::WS_EX_TOOLWINDOW;
 use winapi::um::winuser::WS_EX_TRANSPARENT;
@@ -35,7 +42,7 @@ fn main() {
     let window = WindowBuilder::new()
         .with_title("clock_overlay")
         .with_inner_size(PhysicalSize::new(TEXTURE_WIDTH, TEXTURE_HEIGHT))
-        .with_position(PhysicalPosition::new(900.0, 0.0))
+        .with_position(PhysicalPosition::new(0.0, 0.0))
         .with_transparent(true)
         .with_decorations(false)
         .with_always_on_top(true)
@@ -55,6 +62,15 @@ fn main() {
             GWL_EXSTYLE,
             (WS_EX_TOOLWINDOW | WS_EX_LAYERED | WS_EX_TRANSPARENT) as isize,
         );
+
+        let hmonitor = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONULL);
+        let mut monitor_info: MONITORINFO = zeroed();
+        monitor_info.cbSize = size_of::<MONITORINFO>() as u32;
+        if hmonitor != null_mut() {
+            GetMonitorInfoW(hmonitor, &mut monitor_info);
+            let new_x = (monitor_info.rcMonitor.right - TEXTURE_WIDTH as i32) as f32 / 2.0;
+            window.set_outer_position(PhysicalPosition::new(new_x, 0.0));
+        }
     };
 
     let mut app = App::new(TEXTURE_WIDTH as f32, TEXTURE_HEIGHT as f32);
