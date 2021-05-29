@@ -81,7 +81,7 @@ impl AppRenderer {
                 } => {
                     let t_format = TextFormat::create(&self.dwrite_factory)
                         .with_size(*size_font)
-                        .with_family("Lucida Sans")
+                        .with_family("Segoe UI")
                         .build()
                         .unwrap();
 

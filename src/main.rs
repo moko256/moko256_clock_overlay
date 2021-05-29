@@ -34,7 +34,7 @@ use winit::{
     window::WindowBuilder,
 };
 
-const TEXTURE_WIDTH: u32 = 28 * 5;
+const TEXTURE_WIDTH: u32 = 40 * 5;
 const TEXTURE_HEIGHT: u32 = 54;
 
 fn main() {
