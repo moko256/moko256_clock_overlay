@@ -69,7 +69,7 @@ impl App {
                 rect: (0.0, 0.0, self.width, self.height),
                 size_font: 54.0,
                 size_space: 1.0,
-                weight_stroke: 1.0,
+                weight_stroke: 1.5,
                 color_fill: (0xFFFFFF, 1.0),
                 color_stroke: (0x000000, 1.0),
             },
